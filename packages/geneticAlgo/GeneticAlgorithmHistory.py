@@ -44,3 +44,6 @@ class GeneticAlgorithmHistory:
 
     def last(self, n: int) -> List[GeneticAlgorithmHistoryItem]:
         return self.history[-n:]
+
+    def all(self):
+        return self.history
