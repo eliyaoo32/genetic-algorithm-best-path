@@ -69,5 +69,4 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         return item
 
     def is_valid(self, item: PathItem) -> bool:
-        return item.invalid_jump_index() != -1
-
+        return item.invalid_jump_index() == -1
