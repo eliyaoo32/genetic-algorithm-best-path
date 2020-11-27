@@ -1,10 +1,14 @@
-# Return a random number between star to end (included)
-def rand(start, end) -> int:
-    raise Exception('rand() not implemented yet')
+import random
+import numpy as np
 
 
 def rand_item(items):
-    raise Exception('rand_item() not implemented yet')
+    return np.random.choice(items)
+
+
+# Return a random number between star to end (included)
+def rand(start, end) -> int:
+    return random.randint(start, end)
 
 
 def half(items):
@@ -13,3 +17,4 @@ def half(items):
 
 def push_to_list(array, start, end, pushed_array):
     return array[0:start-1] + pushed_array + array[end:len(array)]
+

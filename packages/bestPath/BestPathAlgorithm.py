@@ -5,20 +5,23 @@ from packages.geneticAlgo.utils import roulette_wheel
 from .Point import Point
 from .PathItem import PathItem
 from .utils import half, rand, push_to_list
+from .PathUtils import generate_path
 
 
 class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
-    def __init__(self, mutation_chance: float, population_size: int,
+    def __init__(self, mutation_chance: float, grid_width: int,
                  start: Point, end: Point, max_generation_without_improvement, small_improvement):
-        super().__init__(mutation_chance, population_size)
+        self.grid_width = grid_width
         self.start = start
         self.end = end
         self.max_generation_without_improvement = max_generation_without_improvement
         self.small_improvement = small_improvement
 
+        super().__init__(mutation_chance, population_size=grid_width*2)
+
     def initial_population(self) -> List[PathItem]:
         return [
-            PathItem.generate_path(self.start, self.end)
+            PathItem(generate_path(self.start, self.end))
             for i in range(self.population_size)
         ]
 
@@ -28,7 +31,8 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
 
         last_history = self.history.last(self.max_generation_without_improvement)
         for i in range(len(last_history)-1):
-            if abs(last_history[i] - last_history[i+1]) >= self.small_improvement:
+            max_fit_improvement = abs(last_history[i].max_fitness - last_history[i+1].max_fitness)
+            if max_fit_improvement >= self.small_improvement:
                 return False
 
         return True
@@ -56,7 +60,7 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         while invalid_jump_index != -1:
             start = item.value[invalid_jump_index-1]
             end = item.value[invalid_jump_index]
-            fixed_path = PathItem.generate_path(start, end)
+            fixed_path = generate_path(start, end)
 
             item.value = push_to_list(item.value, invalid_jump_index-1, invalid_jump_index, fixed_path)
 
