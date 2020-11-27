@@ -1,6 +1,7 @@
 import math
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, List
+from .GeneticAlgorithmHistory import GeneticAlgorithmHistory
 from .GeneticItem import GeneticItem
 from .utils import should_happen
 
@@ -12,6 +13,10 @@ class GeneticAlgorithm(ABC, Generic[T]):
         self.population_size = population_size
         self.mutation_chance = mutation_chance
         self.population: List[T] = self.initial_population()
+
+        # Init history
+        self.history = GeneticAlgorithmHistory()
+        self.history.add(self.population)
 
     @abstractmethod
     def initial_population(self) -> List[T]:
@@ -59,6 +64,7 @@ class GeneticAlgorithm(ABC, Generic[T]):
             new_population.append(child)
 
         self.population = new_population
+        self.history.add(self.population)
 
     def _most_fitted(self) -> T:
         fitness = -math.inf
