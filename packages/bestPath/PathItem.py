@@ -1,7 +1,7 @@
 from typing import List
-from packages.GeneticItem import GeneticItem
-from packages.Point import Point
-from packages.utils import rand_item
+from packages.geneticAlgo.GeneticItem import GeneticItem
+from packages.bestPath.Point import Point
+from packages.bestPath.utils import rand_item
 
 
 class PathItem(GeneticItem[List[Point]]):

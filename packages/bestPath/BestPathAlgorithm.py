@@ -1,7 +1,7 @@
 from typing import List
 
 from .Point import Point
-from .GeneticAlgorithm import GeneticAlgorithm
+from packages.geneticAlgo.GeneticAlgorithm import GeneticAlgorithm
 from .PathItem import PathItem
 
 
@@ -12,7 +12,10 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         self.end = end
 
     def initial_population(self) -> List[PathItem]:
-        pass
+        return [
+            PathItem.generate_path(self.start, self.end)
+            for i in range(self.population_size)
+        ]
 
     def should_stop(self) -> bool:
         pass

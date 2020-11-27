@@ -2,9 +2,12 @@ import math
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, List
 from .GeneticItem import GeneticItem
-from .utils import should_happen
 
 T = TypeVar('T', bound=GeneticItem)
+
+
+def should_happen(chance: float) -> bool:
+    raise Exception('should_happen() not implemented yet')
 
 
 class GeneticAlgorithm(ABC, Generic[T]):
