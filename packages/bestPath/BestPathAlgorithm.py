@@ -8,10 +8,13 @@ from .utils import half, rand, push_to_list
 
 
 class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
-    def __init__(self, mutation_chance: float, population_size: int, start: Point, end: Point):
+    def __init__(self, mutation_chance: float, population_size: int,
+                 start: Point, end: Point, max_generation_without_improvement, small_improvement):
         super().__init__(mutation_chance, population_size)
         self.start = start
         self.end = end
+        self.max_generation_without_improvement = max_generation_without_improvement
+        self.small_improvement = small_improvement
 
     def initial_population(self) -> List[PathItem]:
         return [
@@ -20,7 +23,15 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         ]
 
     def should_stop(self) -> bool:
-        pass
+        if self.history.total_generations() < self.max_generation_without_improvement:
+            return False
+
+        last_history = self.history.last(self.max_generation_without_improvement)
+        for i in range(len(last_history)-1):
+            if abs(last_history[i] - last_history[i+1]) >= self.small_improvement:
+                return False
+
+        return True
 
     def mating(self, parent1: PathItem, parent2: PathItem) -> PathItem:
         path: List[Point] = half(parent1.value) + half(parent2.value)

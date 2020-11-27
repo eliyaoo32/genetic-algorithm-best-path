@@ -38,3 +38,9 @@ class GeneticAlgorithmHistory:
 
     def get(self, generation_index: int) -> GeneticAlgorithmHistoryItem:
         return self.history[generation_index]
+
+    def total_generations(self) -> int:
+        return len(self.history)
+
+    def last(self, n: int) -> List[GeneticAlgorithmHistoryItem]:
+        return self.history[-n:]
