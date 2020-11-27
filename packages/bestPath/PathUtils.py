@@ -11,12 +11,12 @@ def generate_path(start: Point, end: Point) -> List[Point]:
     while head != end:
         if 'x' == rand_item(['x', 'y']):
             if head.x >= end.x:
-                gen_path.append(Point(head.x - 1, head.y))
+                gen_path.append(Point(max(head.x - 1, 0), head.y))
             else:
                 gen_path.append(Point(head.x + 1, head.y))
         else:
             if head.y >= end.y:
-                gen_path.append(Point(head.x, head.y - 1))
+                gen_path.append(Point(head.x, max(head.y - 1, 0)))
             else:
                 gen_path.append(Point(head.x, head.y + 1))
 

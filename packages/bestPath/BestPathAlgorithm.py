@@ -60,9 +60,12 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         while invalid_jump_index != -1:
             start = item.value[invalid_jump_index-1]
             end = item.value[invalid_jump_index]
-            fixed_path = generate_path(start, end)
 
-            item.value = push_to_list(item.value, invalid_jump_index-1, invalid_jump_index, fixed_path)
+            if start == end:
+                item.value.pop(invalid_jump_index)
+            else:
+                fixed_path = generate_path(start, end)
+                item.value = push_to_list(item.value, invalid_jump_index-1, invalid_jump_index, fixed_path)
 
             invalid_jump_index = item.invalid_jump_index()
 

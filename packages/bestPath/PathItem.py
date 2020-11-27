@@ -16,7 +16,7 @@ class PathItem(GeneticItem[List[Point]]):
             prev_item = self.value[i - 1]
             current_item = self.value[i]
 
-            if current_item.distance(prev_item) > 1:
+            if current_item.distance(prev_item) != 1:
                 return i
 
         return -1
