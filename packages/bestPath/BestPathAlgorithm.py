@@ -1,8 +1,10 @@
 from typing import List
+from packages.geneticAlgo.GeneticAlgorithm import GeneticAlgorithm
+from packages.geneticAlgo.utils import roulette_wheel
 
 from .Point import Point
-from packages.geneticAlgo.GeneticAlgorithm import GeneticAlgorithm
 from .PathItem import PathItem
+from .utils import half, rand, push_to_list
 
 
 class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
@@ -21,10 +23,36 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         pass
 
     def mating(self, parent1: PathItem, parent2: PathItem) -> PathItem:
-        pass
+        path: List[Point] = half(parent1.value) + half(parent2.value)
+
+        return PathItem(path)
 
     def mutation(self, item: PathItem) -> PathItem:
-        pass
+        mutation_size = min(1, int(0.05 * self.population_size), len(item.value) // 2)
+        start_index = rand(0, len(item.value) - 1 - mutation_size)
+
+        for i in range(mutation_size):
+            item.value.pop(start_index+i)
+
+        return item
 
     def select_parents(self) -> (PathItem, PathItem):
-        pass
+        return roulette_wheel(self.population)
+
+    def handle_erroneous(self, item: PathItem) -> PathItem:
+        invalid_jump_index = item.invalid_jump_index()
+
+        while invalid_jump_index != -1:
+            start = item.value[invalid_jump_index-1]
+            end = item.value[invalid_jump_index]
+            fixed_path = PathItem.generate_path(start, end)
+
+            item.value = push_to_list(item.value, invalid_jump_index-1, invalid_jump_index, fixed_path)
+
+            invalid_jump_index = item.invalid_jump_index()
+
+        return item
+
+    def is_valid(self, item: PathItem) -> bool:
+        return item.invalid_jump_index() != -1
+

@@ -2,12 +2,9 @@ import math
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, List
 from .GeneticItem import GeneticItem
+from .utils import should_happen
 
 T = TypeVar('T', bound=GeneticItem)
-
-
-def should_happen(chance: float) -> bool:
-    raise Exception('should_happen() not implemented yet')
 
 
 class GeneticAlgorithm(ABC, Generic[T]):
@@ -36,6 +33,14 @@ class GeneticAlgorithm(ABC, Generic[T]):
     def select_parents(self) -> (T, T):
         pass
 
+    @abstractmethod
+    def handle_erroneous(self, item: T) -> T:
+        pass
+
+    @abstractmethod
+    def is_valid(self, item: T) -> bool:
+        pass
+
     def _merge(self, parent1: T, parent2: T) -> T:
         item: T = self.mating(parent1, parent2)
         if should_happen(self.mutation_chance):
@@ -47,7 +52,11 @@ class GeneticAlgorithm(ABC, Generic[T]):
         new_population: List[T] = []
         for i in range(len(self.population)):
             parents = self.select_parents()
-            new_population.append(self._merge(parents[0], parents[1]))
+            child = self._merge(parents[0], parents[1])
+            if not self.is_valid(child):
+                child = self.handle_erroneous(child)
+
+            new_population.append(child)
 
         self.population = new_population
 
@@ -67,4 +76,4 @@ class GeneticAlgorithm(ABC, Generic[T]):
         while not self.should_stop():
             self._new_generation()
 
-        return self._most_fitted().item
+        return self._most_fitted().value

@@ -5,8 +5,8 @@ G = TypeVar('G')
 
 
 class GeneticItem(ABC, Generic[G]):
-    def __init__(self, item: G):
-        self.item = item
+    def __init__(self, value: G):
+        self.value = value
 
     @abstractmethod
     def fitness(self) -> float:

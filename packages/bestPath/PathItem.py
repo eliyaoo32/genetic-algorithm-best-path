@@ -6,7 +6,20 @@ from packages.bestPath.utils import rand_item
 
 class PathItem(GeneticItem[List[Point]]):
     def fitness(self) -> float:
-        return 1 / len(self.item)
+        return 1 / len(self.value)
+
+    def invalid_jump_index(self) -> int:
+        """
+        If a point couldn't be arrived from the previous point, it considered a invalid jump
+        :return: index of the invalid move | -1 if not found
+        """
+        for i in range(1, len(self.value)):
+            current_item = self.value[i]
+            next_item = self.value[i + 1]
+            if current_item.distance(next_item) != 1:
+                return i
+
+        return -1
 
     @staticmethod
     def generate_path(start: Point, end: Point):
