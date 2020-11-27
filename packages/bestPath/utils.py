@@ -16,5 +16,5 @@ def half(items):
 
 
 def push_to_list(array, start, end, pushed_array):
-    return array[0:min(start-1, 0)] + pushed_array + array[end:len(array)]
+    return array[0:start] + pushed_array + array[end:len(array)]
 
