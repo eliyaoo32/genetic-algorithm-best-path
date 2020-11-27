@@ -47,7 +47,7 @@ if __name__ == '__main__':
     ])
     plt.ylabel('min fitness')
     plt.xlabel('Generation')
-    plt.figure("Min fitness")
+    plt.figure()
 
     # Avg fitness graph
     plt.plot([
