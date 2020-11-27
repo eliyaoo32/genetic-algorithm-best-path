@@ -4,7 +4,7 @@ from packages.geneticAlgo.utils import roulette_wheel
 
 from .Point import Point
 from .PathItem import PathItem
-from .utils import half, rand, push_to_list
+from .utils import left_half, rand, push_to_list, right_half
 from .PathUtils import generate_path
 
 
@@ -38,7 +38,7 @@ class BestPathAlgorithm(GeneticAlgorithm[PathItem]):
         return True
 
     def mating(self, parent1: PathItem, parent2: PathItem) -> PathItem:
-        path: List[Point] = half(parent1.value) + half(parent2.value)
+        path: List[Point] = left_half(parent1.value) + right_half(parent2.value)
 
         return PathItem(path)
 

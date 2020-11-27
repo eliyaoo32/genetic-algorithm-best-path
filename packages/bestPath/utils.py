@@ -11,8 +11,12 @@ def rand(start, end) -> int:
     return random.randint(start, end)
 
 
-def half(items):
+def left_half(items):
     return items[0:(len(items)//2)]
+
+
+def right_half(items):
+    return items[(len(items)//2):]
 
 
 def push_to_list(array, start, end, pushed_array):
