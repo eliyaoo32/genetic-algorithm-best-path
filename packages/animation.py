@@ -1,7 +1,7 @@
 from typing import List
 import matplotlib.animation as animation
 import matplotlib.pyplot as plt
-from packages.bestPath.Point import Point
+from packages.paths.Point import Point
 
 
 current_history = 0

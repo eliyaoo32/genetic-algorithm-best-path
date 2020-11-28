@@ -1,4 +1,4 @@
-from packages.bestPath.utils import rand
+from packages.utils import rand
 
 
 class Point:

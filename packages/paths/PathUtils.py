@@ -1,6 +1,6 @@
 from typing import List
 from .Point import Point
-from .utils import rand_item
+from packages.utils import rand_item
 
 
 def generate_path(start: Point, end: Point) -> List[Point]:

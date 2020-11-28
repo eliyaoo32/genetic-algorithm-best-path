@@ -1,8 +1,8 @@
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from typing import List
-from packages.bestPath.BestPathAlgorithm import BestPathAlgorithm
-from packages.bestPath.Point import Point
+from packages.paths.BestPathAlgorithm import BestPathAlgorithm
+from packages.paths.Point import Point
 
 
 current_history = 0

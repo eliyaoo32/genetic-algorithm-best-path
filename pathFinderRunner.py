@@ -1,9 +1,9 @@
 from packages.pathFinder.PathFinderAlgo import PathFinderAlgo
-from packages.bestPath.Point import Point
+from packages.paths.Point import Point
 from packages.animation import animated_history
 
 if __name__ == '__main__':
-    MUTATION_CHANCE = 0.8
+    MUTATION_CHANCE = 0.2
     POPULATION_SIZE = 80
     TOTAL_GENERATIONS = 100
 

@@ -1,9 +1,9 @@
 from typing import List
 
-from packages.bestPath.PathItem import PathItem
-from packages.bestPath.utils import push_to_list, rand, left_half, right_half, get_third
-from packages.bestPath.PathUtils import generate_path, complete_path, find_invalid_move, find_middle_common_point
-from packages.bestPath.Point import Point
+from packages.pathFinder.PathItem import PathItem
+from packages.utils import push_to_list, rand, left_half, right_half
+from packages.paths.PathUtils import generate_path, complete_path, find_invalid_move, find_middle_common_point
+from packages.paths.Point import Point
 
 from packages.geneticAlgo.GeneticAlgorithm import GeneticAlgorithm
 from packages.geneticAlgo.utils import stop_after_n_generations, roulette_wheel
