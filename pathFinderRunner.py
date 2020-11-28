@@ -2,13 +2,26 @@ from packages.pathFinder.PathFinderAlgo import PathFinderAlgo
 from packages.paths.Point import Point
 from packages.animation import animated_history
 
-if __name__ == '__main__':
-    MUTATION_CHANCE = 0.2
-    POPULATION_SIZE = 80
-    TOTAL_GENERATIONS = 100
 
-    start = Point(0, 0)
-    end = Point(10, 10)
+def get_grid_size() -> int:
+    print("Enter the grid width: ")
+    return int(input())
+
+
+if __name__ == '__main__':
+    grid_width = get_grid_size()
+
+    MUTATION_CHANCE = 0.4
+    POPULATION_SIZE = 8 * grid_width
+    TOTAL_GENERATIONS = 140
+
+    start = Point.random(grid_width)
+    end = Point.random(grid_width)
+    while end == start:
+        end = Point.random(grid_width)
+
+    print("Looking for a path from {} to {}, grid width is {}".format(start, end, grid_width))
+
     algo = PathFinderAlgo(
         mutation_chance=MUTATION_CHANCE,
         population_size=POPULATION_SIZE,
@@ -26,5 +39,7 @@ if __name__ == '__main__':
     print("2) Length: {}".format(len(bestPath)))
 
     algo.display_plots()
-    animated_history([item.most_fitted for item in algo.history.all()])
-
+    animated_history(
+        history=[item.most_fitted for item in algo.history.all()],
+        grid_width=grid_width
+    )

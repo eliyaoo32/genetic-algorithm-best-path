@@ -7,16 +7,16 @@ from packages.paths.Point import Point
 current_history = 0
 
 
-def animated_history(history: List[List[Point]]):
+def animated_history(history: List[List[Point]], grid_width: int):
     fig = plt.figure()
-    ax = plt.axes(xlim=(-1, 11), ylim=(-1, 11))
+    ax = plt.axes(xlim=(-1, grid_width+1), ylim=(-1, grid_width+1))
     line, = ax.plot([], [], lw=2)
 
     def init():
         line.set_data([], [])
         return line
 
-    def animate(i):
+    def animate(_):
         global current_history
 
         x = [p.x for p in history[current_history]]

@@ -80,12 +80,8 @@ class GeneticAlgorithm(ABC, Generic[T]):
         return fitted_item
 
     def run(self):
-        iteration = 1
-
         while not self.should_stop():
-            print("Genetic Algorithm! Iteration = {}".format(iteration))
             self._new_generation()
-            iteration += 1
 
         return self._most_fitted().value
 
