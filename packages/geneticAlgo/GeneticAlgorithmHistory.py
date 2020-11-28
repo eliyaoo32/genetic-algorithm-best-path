@@ -9,6 +9,7 @@ class GeneticAlgorithmHistoryItem:
     max_fitness: float
     average_fitness: float
     min_fitness: float
+    most_fitted: GeneticItem
 
 
 class GeneticAlgorithmHistory:
@@ -19,11 +20,13 @@ class GeneticAlgorithmHistory:
         max_fitness: float = -math.inf
         min_fitness: float = math.inf
         total_fitness: float = 0
+        most_fitted: GeneticItem = None
 
         for item in population:
             item_fitness = item.fitness()
             if item_fitness > max_fitness:
                 max_fitness = item_fitness
+                most_fitted = item.value
             if item_fitness < min_fitness:
                 min_fitness = item_fitness
             total_fitness += item_fitness
@@ -32,6 +35,7 @@ class GeneticAlgorithmHistory:
         history_item = GeneticAlgorithmHistoryItem(
             max_fitness=max_fitness,
             min_fitness=min_fitness,
+            most_fitted=most_fitted,
             average_fitness=avg_fitness
         )
         self.history.append(history_item)

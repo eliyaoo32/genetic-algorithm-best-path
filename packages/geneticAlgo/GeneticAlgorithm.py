@@ -1,4 +1,5 @@
 import math
+import matplotlib.pyplot as plt
 from abc import ABC, abstractmethod
 from typing import TypeVar, Generic, List
 from .GeneticAlgorithmHistory import GeneticAlgorithmHistory
@@ -79,7 +80,39 @@ class GeneticAlgorithm(ABC, Generic[T]):
         return fitted_item
 
     def run(self):
+        iteration = 1
+
         while not self.should_stop():
+            print("Genetic Algorithm! Iteration = {}".format(iteration))
             self._new_generation()
+            iteration += 1
 
         return self._most_fitted().value
+
+    def display_plots(self):
+        # Max fitness graph
+        plt.plot([
+            x.max_fitness
+            for x in self.history.all()
+        ])
+        plt.ylabel('Max fitness')
+        plt.xlabel('Generation')
+        plt.figure()
+
+        # Min fitness graph
+        plt.plot([
+            x.min_fitness
+            for x in self.history.all()
+        ])
+        plt.ylabel('min fitness')
+        plt.xlabel('Generation')
+        plt.figure()
+
+        # Avg fitness graph
+        plt.plot([
+            x.average_fitness
+            for x in self.history.all()
+        ])
+        plt.ylabel('Average fitness')
+        plt.xlabel('Generation')
+        plt.figure()

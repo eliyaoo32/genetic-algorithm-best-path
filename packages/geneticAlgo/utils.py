@@ -14,9 +14,13 @@ def should_happen(chance: float) -> bool:
 def roulette_wheel(population: List[GeneticItem]) -> (GeneticItem, GeneticItem):
     total_fitness = sum(item.fitness() for item in population)
     probability = [
-        (item.fitness() / total_fitness)
+        item.fitness() / total_fitness
         for item in population
     ]
 
     parents = np.random.choice(population, 2, p=probability, replace=False)
     return tuple(parents)
+
+
+def stop_after_n_generations(generations: int, algo) -> bool:
+    return len(algo.history.all()) >= generations
