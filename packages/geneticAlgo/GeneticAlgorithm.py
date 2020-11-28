@@ -94,25 +94,13 @@ class GeneticAlgorithm(ABC, Generic[T]):
         plt.plot([
             x.max_fitness
             for x in self.history.all()
-        ])
-        plt.ylabel('Max fitness')
-        plt.xlabel('Generation')
-        plt.figure()
-
-        # Min fitness graph
+        ], label="Max Fitness")
         plt.plot([
             x.min_fitness
             for x in self.history.all()
-        ])
-        plt.ylabel('min fitness')
-        plt.xlabel('Generation')
-        plt.figure()
-
-        # Avg fitness graph
+        ], label="Min Fitness")
         plt.plot([
             x.average_fitness
             for x in self.history.all()
-        ])
-        plt.ylabel('Average fitness')
-        plt.xlabel('Generation')
-        plt.figure()
+        ], label="Average Fitness")
+        plt.legend()
