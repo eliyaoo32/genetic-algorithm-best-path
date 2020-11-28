@@ -15,7 +15,16 @@ if __name__ == '__main__':
         total_generations=TOTAL_GENERATIONS,
         start=start, end=end
     )
-    algo.run()
+    bestPath = algo.run()
+
+    print("********** INFORMATION **********")
+    print("Start Point: {}".format(str(start)))
+    print("End Point: {}".format(str(end)))
+    print("Total Generations: {}".format(algo.history.total_generations()))
+    print("Result:")
+    print("1) Path: {}".format("-".join([str(x) for x in bestPath])))
+    print("2) Length: {}".format(len(bestPath)))
 
     algo.display_plots()
     animated_history([item.most_fitted for item in algo.history.all()])
+
