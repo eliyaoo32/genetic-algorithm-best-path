@@ -8,6 +8,8 @@ def rand_item(items):
 
 # Return a random number between star to end (included)
 def rand(start, end) -> int:
+    if start == end:
+        return start
     return random.randint(start, end)
 
 
